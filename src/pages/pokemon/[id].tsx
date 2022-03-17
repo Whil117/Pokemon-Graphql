@@ -4,7 +4,26 @@ import { NextPageContext } from 'next'
 import Image from 'next/image'
 import { FC } from 'react'
 
-type Props = {}
+type Props = {
+  data: {
+    pokemon: {
+      id: string
+      image: string
+      number: string
+      name: string
+      weight: {
+        minimum: number
+        maximum: number
+      }
+      height: {
+        minimum: number
+        maximum: number
+      }
+      classification: string
+      types: Array<string>
+    }
+  }
+}
 
 const soloPokemon = gql`
   query pokemon($id: String, $name: String) {
@@ -33,8 +52,6 @@ const soloPokemon = gql`
 `
 
 const Pokemon: FC<Props> = ({ data }) => {
-  console.log(data)
-
   return (
     <div>
       <h1>Pokemon</h1>
@@ -46,7 +63,6 @@ const Pokemon: FC<Props> = ({ data }) => {
       />
       <h1>{data.pokemon.name}</h1>
       <p>Classification: {data.pokemon.classification}</p>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   )
 }
